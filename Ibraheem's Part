@@ -1,0 +1,97 @@
+int main() {
+    RentalSystem system;
+
+    // Preloaded Cars
+    system.addCar(new SportsCar(1, "Ferrari", "488 GTB", 1200));
+    system.addCar(new SportsCar(2, "Lamborghini", "Huracan EVO", 1500));
+    system.addCar(new SportsCar(3, "Porsche", "911 Turbo S", 1000));
+    system.addCar(new SportsCar(4, "Bugatti", "Chiron Super Sport", 5000));
+    system.addCar(new SportsCar(5, "McLaren", "Speedtail", 4500));
+    system.addCar(new SportsCar(6, "Koenigsegg", "Gemera", 4500));
+
+    system.addCar(new LuxuryCar(7, "Mercedes-Benz", "S-Class", 800));
+    system.addCar(new LuxuryCar(8, "BMW", "7 Series", 750));
+    system.addCar(new LuxuryCar(9, "Rolls-Royce", "Ghost", 2500));
+    system.addCar(new LuxuryCar(10, "Bentley", "Continental GT", 2000));
+
+    system.addCar(new StandardCar(11, "Toyota", "Camry", 150));
+    system.addCar(new StandardCar(12, "Honda", "Accord", 140));
+    system.addCar(new StandardCar(13, "Hyundai", "Sonata", 130));
+    system.addCar(new StandardCar(14, "Toyota", "Land Cruiser", 200));
+    system.addCar(new StandardCar(15, "Range Rover", "Autobiography", 600));
+    system.addCar(new StandardCar(16, "Kia", "Sportage", 180));
+
+    system.addCar(new LuxuryCar(17, "Mercedes-Benz", "G-Wagon", 700));
+
+    system.addCar(new BaseCar(18, "Ford", "F-150 Raptor", 250));
+    system.addCar(new BaseCar(19, "Toyota", "Hilux", 220));
+    system.addCar(new BaseCar(20, "RAM", "1500", 300));
+    system.addCar(new BaseCar(21, "Suzuki", "Alto", 80));
+    system.addCar(new BaseCar(22, "Toyota", "Yaris", 100));
+    system.addCar(new BaseCar(23, "Honda", "Civic", 110));
+    system.addCar(new BaseCar(24, "Toyota", "Raize", 90));
+
+    // Main Menu
+    int role;
+    cout << "===== Car Rental System =====\n";
+    cout << "1. Admin Login\n2. Customer Login\nChoice: ";
+    cin >> role;
+
+    if (role == 1) {
+        string user, pass;
+        cout << "Username: ";
+        cin >> user;
+        cout << "Password: ";
+        cin >> pass;
+
+        if (user == "admin" && pass == "1234") {
+            int choice;
+            do {
+                cout << "\n===== Admin Menu =====";
+                cout << "\n1. View Cars";
+                cout << "\n2. Add Car";
+                cout << "\n3. View Bookings";
+                cout << "\n4. Exit\nChoice: ";
+                cin >> choice;
+
+                if (choice == 1) system.viewCars();
+                else if (choice == 2) system.addNewCar();
+                else if (choice == 3) system.viewBookings();
+
+            } while (choice != 4);
+        } else {
+            cout << "❌ Invalid credentials.\n";
+        }
+    }
+
+    else if (role == 2) {
+        cin.ignore();
+        string name, cnic;
+        cout << "Enter Name: ";
+        getline(cin, name);
+        cout << "Enter CNIC: ";
+        getline(cin, cnic);
+
+        int choice;
+        do {
+            cout << "\n===== Customer Menu =====";
+            cout << "\n1. View Cars";
+            cout << "\n2. Rent Car";
+            cout << "\n3. Return Car";
+            cout << "\n4. Change Car";
+            cout << "\n5. View Bookings";
+            cout << "\n6. Exit\nChoice: ";
+            cin >> choice;
+
+            if (choice == 1) system.viewCars();
+            else if (choice == 2) system.rentCar(name, cnic);
+            else if (choice == 3) system.returnCar(cnic);
+            else if (choice == 4) system.changeCar(cnic);
+            else if (choice == 5) system.viewBookings();
+
+        } while (choice != 6);
+    }
+
+    cout << "Goodbye!\n";
+    return 0;
+}
